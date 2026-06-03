@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Auftrag online erteilen | Krefelder Zulassungsdienst</title>
+<meta name="description" content="Spar dir den Anruf – erteile deinen Auftrag für die Kfz-Zulassung in nur 2 Minuten. Wir bereiten alles vor und melden uns sofort." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%231e40af%22/><text x=%2250%22 y=%2274%22 font-family=%22Arial, sans-serif%22 font-size=%2264%22 font-weight=%22bold%22 fill=%22white%22 text-anchor=%22middle%22>D</text></svg>">
+<link rel="stylesheet" href="styles/system.css">
+
+<style>
+  body{background:var(--paper-2)}
+  .vm-header{background:#fff;box-shadow:var(--shadow-sm);border-bottom:1px solid var(--hair)}
+  .vm-header .row{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
+  .vm-back{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--ink-2)}
+  .vm-back:hover{color:var(--red)}
+  .vm-brand{display:flex;align-items:center;gap:8px;font-weight:700}
+  .vm-brand .fi{color:var(--red);font-size:1.25rem}
+  
+  .vm-brand-text { display:none; }
+  @media(min-width:600px) {
+    .vm-brand-text { display:inline; }
+  }
+
+  .vm-main{padding:40px 0}
+  .vm-intro{text-align:center;margin-bottom:40px}
+  .vm-intro h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:900;color:var(--red);margin:0 0 12px}
+  .vm-intro p{color:var(--muted);margin:0}
+
+  /* Auftragsformular Spezifisch */
+  .auftrag-form-wrap { max-width: 768px; margin: 0 auto; }
+  .af-block { background:#fff; padding:32px; border-radius:var(--r-xl); box-shadow:var(--shadow-sm); border:1px solid var(--hair); margin-bottom:24px; }
+  .af-block-head { display:flex; align-items:center; gap:16px; margin-bottom:24px; border-bottom:1px solid var(--hair-2); padding-bottom:16px; }
+  .af-block-num { width:32px; height:32px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:900; flex-shrink:0; }
+  .af-block-head h2 { font-size:1.25rem; font-weight:700; margin:0; }
+  
+  .af-help { margin-top:12px; }
+  .af-help summary { font-size:.8rem; font-weight:600; color:var(--red); cursor:pointer; outline:none; }
+  .af-help summary:hover { text-decoration:underline; }
+  .af-help img { margin-top:8px; border-radius:var(--r-sm); border:1px solid var(--hair); width:100%; max-width:320px; }
+
+  /* Submit Area */
+  .submit-area { margin-top:40px; text-align:center; }
+  .submit-tip { font-size:.875rem; color:var(--muted); margin-bottom:16px; }
+  
+  /* Footer */
+  .vm-footer { text-align:center; padding:32px 0; border-top:1px solid var(--hair); color:var(--muted-2); font-size:.875rem; margin-top:40px; }
+  .vm-footer a { color:var(--ink-2); font-weight:600; margin:0 8px; }
+  .vm-footer a:hover { color:var(--red); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="vm-header">
+  <div class="wrap">
+    <div class="row">
+      <a href="index.html" class="vm-back">
+        <span class="fi"><svg viewBox="0 0 448 512" fill="currentColor"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+        Zurück zur Startseite
+      </a>
+      <div class="vm-brand">
+        <span class="fi" style="color:var(--red)"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M135.2 117.4 109.1 192h293.8l-26.1-74.6C372.3 104.6 360.2 96 346.6 96H165.4c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8 74.8 96.3C88.3 57.8 124.6 32 165.4 32h181.2c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2v144c0 17.7-14.3 32-32 32h-32c-17.7 0-32-14.3-32-32v-32H96v32c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V256c0-26.7 16.4-49.6 39.6-59.2zM128 288a32 32 0 1 0-64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg></span>
+        <span class="vm-brand-text">Krefelder Zulassungsdienst</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap vm-main" style="max-width:1152px">
+  <div class="vm-intro">
+    <div class="af-live"><span class="dot"></span> Antwort in Minuten</div>
+    <h1>Auftrag in 2 Minuten erteilen</h1>
+    <p>Spar dir den Anruf — gib deine Daten ein, wir erledigen den Rest.</p>
+  </div>
+
+  <div class="auftrag-form-wrap">
+    <form id="auftragForm" onsubmit="submitAuftrag();return false" novalidate>
+      
+      <!-- Block 1: Vorgang -->
+      <div class="af-block">
+        <div class="af-block-head">
+          <div class="af-block-num">1</div>
+          <h2>Was möchtest du erledigen?</h2>
+        </div>
+        <div class="af-field">
+          <label>Art des Vorgangs *</label>
+          <select id="af-vorgang" required>
+            <option value="">Bitte wählen...</option>
+            <option value="Anmeldung/Neuzulassung">Anmeldung/Neuzulassung</option>
+            <option value="Ummeldung/Halterwechsel">Ummeldung/Halterwechsel</option>
+            <option value="Ummeldung mit neuen Kennzeichen">Ummeldung mit neuen Kennzeichen</option>
+            <option value="Abmeldung/Außerbetriebsetzung">Abmeldung/Außerbetriebsetzung</option>
+            <option value="Motorrad-Anmeldung">Motorrad-Anmeldung</option>
+            <option value="Wunschkennzeichen">Wunschkennzeichen</option>
+            <option value="Adressänderung">Adressänderung</option>
+            <option value="Saison/Kurzzeit/Export">Saison/Kurzzeit/Export</option>
+            <option value="Sonstiges">Sonstiges</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Block 2: Kontaktdaten -->
+      <div class="af-block">
+        <div class="af-block-head">
+          <div class="af-block-num">2</div>
+          <h2>Deine Kontaktdaten</h2>
+        </div>
+        <div class="af-grid">
+          <div class="af-field full">
+            <label>Vorname / Nachname *</label>
+            <input type="text" id="af-name" required>
+          </div>
+          <div class="af-field">
+            <label>Straße + Hausnummer *</label>
+            <input type="text" id="af-strasse" required>
+          </div>
+          <div class="af-field">
+            <label>PLZ / Ort *</label>
+            <input type="text" id="af-ort" required>
+          </div>
+          <div class="af-field">
+            <label>Telefonnummer *</label>
+            <input type="tel" id="af-telefon" required>
+          </div>
+          <div class="af-field">
+            <label>E-Mail Adresse *</label>
+            <input type="email" id="af-email" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Block 3: Fahrzeugdaten -->
+      <div id="block-3" class="af-block" style="display:none;">
+        <div class="af-block-head">
+          <div class="af-block-num">3</div>
+          <h2>Fahrzeugdaten</h2>
+        </div>
+        <div class="af-grid">
+          <div class="af-field">
+            <label>eVB-Nummer (optional)</label>
+            <input type="text" id="af-evb" placeholder="7-stellig (z.B. AB123CD)">
+          </div>
+          <div class="af-field">
+            <label>FIN (optional)</label>
+            <input type="text" id="af-fin" maxlength="17" placeholder="17-stellige Fahrgestellnummer">
+          </div>
+          <div class="af-field full">
+            <label>Fahrzeugscheinnummer (optional)</label>
+            <input type="text" id="af-schein">
+          </div>
+        </div>
+      </div>
+
+      <!-- Block 4: Sicherheitscodes -->
+      <div id="block-4" class="af-block" style="display:none;">
+        <div class="af-block-head">
+          <div class="af-block-num">4</div>
+          <h2>Sicherheitscodes <span style="font-weight:400;color:var(--muted);font-size:.9rem">(nur bei digitaler Express-Zulassung)</span></h2>
+        </div>
+        <div class="af-hint" style="margin-top:-8px;margin-bottom:24px">Ohne Codes holen wir die Unterlagen kostenfrei bei dir ab!</div>
+        
+        <div class="af-grid">
+          <div id="group-zb" class="af-field full" style="display:none;">
+            <div class="af-grid">
+              <div class="af-field">
+                <label>Code Fahrzeugschein (ZB I)</label>
+                <input type="text" id="af-code-zb1">
+                <details class="af-help">
+                  <summary>Wo finde ich den Code?</summary>
+                  <img src="assets/images/quiz-bild-optimized.jpg" loading="lazy" alt="Sicherheitscode ZB I">
+                </details>
+              </div>
+              <div class="af-field">
+                <label>Code Fahrzeugbrief (ZB II)</label>
+                <input type="text" id="af-code-zb2">
+                <details class="af-help">
+                  <summary>Wo finde ich den Code?</summary>
+                  <img src="assets/images/sicherheitscode-beispiel.jpg" loading="lazy" alt="Sicherheitscode ZB II">
+                </details>
+              </div>
+            </div>
+          </div>
+          
+          <div id="group-kz" class="af-field full" style="display:none;">
+            <label>Kennzeichen-Codes vorne & hinten</label>
+            <input type="text" id="af-kz-codes" placeholder="z.B. AB123 / CD456">
+          </div>
+        </div>
+      </div>
+
+      <!-- Block 5: Zusätzliche Angaben -->
+      <div class="af-block">
+        <div class="af-block-head" style="margin-bottom:0;border-bottom:none;padding-bottom:0">
+          <div class="af-block-num">5</div>
+          <h2 style="width:100%"><details style="cursor:pointer;outline:none"><summary style="display:flex;justify-content:space-between;align-items:center;outline:none">Zusätzliche Angaben (optional) <span style="font-size:1.5rem;font-weight:400;color:var(--muted)">+</span></summary>
+            <div class="af-grid" style="margin-top:24px;cursor:default">
+              <div class="af-field">
+                <label>Wunschkennzeichen + PIN</label>
+                <input type="text" id="af-wunschkz">
+              </div>
+              <div class="af-field">
+                <label>IBAN (für Kfz-Steuer)</label>
+                <input type="text" id="af-iban" placeholder="DE...">
+              </div>
+              <div class="af-field full">
+                <label>Bemerkung</label>
+                <textarea id="af-bemerkung" rows="3"></textarea>
+              </div>
+            </div>
+          </details></h2>
+        </div>
+      </div>
+
+      <!-- Submit Area -->
+      <div class="submit-area">
+        <label class="af-check" style="text-align:left;display:inline-flex;max-width:600px;margin:0 auto 24px">
+          <input type="checkbox" id="af-dsgvo" required>
+          <span>Ich stimme der Verarbeitung meiner Daten zur Auftragsabwicklung gemäß der <a href="datenschutz.html" style="text-decoration:underline;color:var(--red)">Datenschutzerklärung</a> zu. *</span>
+        </label>
+
+        <p class="submit-tip">Nach dem Klick öffnet sich WhatsApp mit deinen Angaben — du tippst nur noch auf Senden.</p>
+        
+        <button type="submit" class="af-submit" style="max-width:400px;margin:0 auto;width:100%">
+          <svg viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.2-157zM223.9 438.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.5-186.6 184.5zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+          Auftrag per WhatsApp senden
+        </button>
+      </div>
+
+    </form>
+  </div>
+</main>
+
+<footer class="vm-footer">
+  <div class="wrap">
+    <a href="index.html">Startseite</a> | 
+    <a href="vollmacht.html">Vollmacht</a> | 
+    <a href="impressum.html">Impressum</a> | 
+    <a href="datenschutz.html">Datenschutz</a>
+  </div>
+</footer>
+
+<script>
+  // Sichtbarkeit der Blöcke
+  document.getElementById('af-vorgang').addEventListener('change', updateVisibleFields);
+
+  function updateVisibleFields() {
+    const v = document.getElementById('af-vorgang').value;
+    const b3 = document.getElementById('block-3');
+    const b4 = document.getElementById('block-4');
+    
+    const zbGroup = document.getElementById('group-zb');
+    const kzGroup = document.getElementById('group-kz');
+    
+    // Block 3: eVB, FIN, Schein
+    if (['Anmeldung/Neuzulassung', 'Ummeldung/Halterwechsel', 'Ummeldung mit neuen Kennzeichen', 'Motorrad-Anmeldung', 'Abmeldung/Außerbetriebsetzung'].includes(v)) {
+      b3.style.display = 'block';
+    } else {
+      b3.style.display = 'none';
+    }
+    
+    // Block 4: Sicherheitscodes
+    let showB4 = false;
+    let showZb = false;
+    let showKz = false;
+    
+    if (['Anmeldung/Neuzulassung', 'Ummeldung/Halterwechsel', 'Ummeldung mit neuen Kennzeichen', 'Motorrad-Anmeldung'].includes(v)) {
+      showZb = true;
+    }
+    if (['Abmeldung/Außerbetriebsetzung', 'Ummeldung/Halterwechsel'].includes(v)) {
+      showKz = true;
+    }
+    
+    if (showZb || showKz) showB4 = true;
+    
+    b4.style.display = showB4 ? 'block' : 'none';
+    zbGroup.style.display = showZb ? 'block' : 'none';
+    kzGroup.style.display = showKz ? 'block' : 'none';
+  }
+
+  // Initial call
+  updateVisibleFields();
+
+  // Validierung Email
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  // Submit Auftrag
+  function submitAuftrag() {
+    let isValid = true;
+    const requiredIds = ['af-vorgang', 'af-name', 'af-strasse', 'af-ort', 'af-telefon', 'af-email'];
+    
+    // Reset styling
+    document.querySelectorAll('#auftragForm .invalid').forEach(el => el.classList.remove('invalid'));
+
+    requiredIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.classList.add('invalid');
+        if (isValid) el.focus();
+        isValid = false;
+      }
+    });
+
+    const emailEl = document.getElementById('af-email');
+    if (emailEl.value.trim() && !isValidEmail(emailEl.value.trim())) {
+      emailEl.classList.add('invalid');
+      if (isValid) emailEl.focus();
+      isValid = false;
+    }
+
+    const dsgvo = document.getElementById('af-dsgvo');
+    if (!dsgvo.checked) {
+      dsgvo.parentElement.classList.add('invalid');
+      if (isValid) dsgvo.focus();
+      isValid = false;
+    }
+
+    if (!isValid) return;
+
+    // Collect Data
+    let text = "Hallo! Ich möchte einen neuen Auftrag erteilen:\n\n";
+    
+    const fields = [
+      { id: 'af-vorgang', label: 'Vorgang' },
+      { id: 'af-name', label: 'Name' },
+      { id: 'af-strasse', label: 'Straße/Nr.' },
+      { id: 'af-ort', label: 'PLZ/Ort' },
+      { id: 'af-telefon', label: 'Telefon' },
+      { id: 'af-email', label: 'E-Mail' },
+      { id: 'af-evb', label: 'eVB' },
+      { id: 'af-fin', label: 'FIN' },
+      { id: 'af-schein', label: 'Fahrzeugscheinnummer' },
+      { id: 'af-code-zb1', label: 'ZB I Code' },
+      { id: 'af-code-zb2', label: 'ZB II Code' },
+      { id: 'af-kz-codes', label: 'Kennzeichen-Codes' },
+      { id: 'af-wunschkz', label: 'Wunschkennzeichen + PIN' },
+      { id: 'af-iban', label: 'IBAN' },
+      { id: 'af-bemerkung', label: 'Bemerkung' }
+    ];
+
+    fields.forEach(f => {
+      const el = document.getElementById(f.id);
+      // Nur Werte übernehmen, wenn das Element sichtbar ist (oder im sichtbaren DOM existiert)
+      // Wir prüfen den "offsetWidth" oder ob ein parent ausgeblendet ist
+      if (el && el.value.trim()) {
+        if (el.closest('.af-block') && el.closest('.af-block').style.display === 'none') return;
+        if (el.closest('.af-field.full') && el.closest('.af-field.full').style.display === 'none') return;
+        text += `*${f.label}:* ${el.value.trim()}\n`;
+      }
+    });
+
+    const waLink = "https://wa.me/4915204638064?text=" + encodeURIComponent(text);
+    window.open(waLink, '_blank');
+  }
+</script>
+</body>
+</html>
