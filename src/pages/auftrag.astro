@@ -1,0 +1,514 @@
+---
+---
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Auftrag online erteilen | Zulassungsdienst Kennwerk</title>
+<meta name="description" content="Spar dir den Anruf – erteile deinen Auftrag für die Kfz-Zulassung in nur 2 Minuten. Wir bereiten alles vor und melden uns sofort." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%231e40af%22/><text x=%2250%22 y=%2274%22 font-family=%22Arial, sans-serif%22 font-size=%2264%22 font-weight=%22bold%22 fill=%22white%22 text-anchor=%22middle%22>D</text></svg>">
+<link rel="stylesheet" href={import.meta.env.BASE_URL + "styles/system.css"}>
+
+<style>
+  body{background:var(--paper-2)}
+  .vm-header{background:var(--paper-2);box-shadow:var(--shadow-sm);border-bottom:1px solid var(--hair-2)}
+  .vm-header .row{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
+  .vm-back{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--ink-2)}
+  .vm-back:hover{color:var(--orange)}
+  .vm-brand{display:flex;align-items:center;gap:8px;font-weight:700}
+  .vm-brand .fi{color:var(--orange);font-size:1.25rem}
+  
+  .vm-brand-text { display:none; }
+  @media(min-width:600px) {
+    .vm-brand-text { display:inline; }
+  }
+
+  .vm-main{padding:40px 0}
+  .vm-intro{text-align:center;margin-bottom:40px}
+  .vm-intro h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:900;color:var(--orange-deep);margin:0 0 12px}
+  .vm-intro p{color:var(--muted);margin:0}
+
+  /* Auftragsformular Spezifisch */
+  .auftrag-form-wrap { max-width: 768px; margin: 0 auto; }
+  .af-block { background:var(--paper-2); padding:32px; border-radius:var(--r-xl); box-shadow:var(--shadow-sm); border:1px solid var(--hair-2); margin-bottom:24px; }
+  .af-block-head { display:flex; align-items:center; gap:16px; margin-bottom:24px; border-bottom:1px solid var(--hair-2); padding-bottom:16px; }
+  .af-block-num { width:32px; height:32px; border-radius:50%; background:var(--paper-3); color:var(--orange); box-shadow: 0 0 10px rgba(0,240,255,0.1); display:flex; align-items:center; justify-content:center; font-weight:900; flex-shrink:0; }
+  .af-block-head h2 { font-size:1.25rem; font-weight:700; margin:0; }
+  
+  .af-help { margin-top:12px; }
+  .af-help summary { font-size:.8rem; font-weight:600; color:var(--orange-deep); cursor:pointer; outline:none; }
+  .af-help summary:hover { text-decoration:underline; }
+  .af-help img { margin-top:8px; border-radius:var(--r-sm); border:1px solid var(--hair-2); width:100%; max-width:320px; }
+
+  /* Submit Area */
+  .submit-area { margin-top:40px; text-align:center; }
+  .submit-tip { font-size:.875rem; color:var(--muted); margin-bottom:16px; }
+  .af-submit { background:var(--orange); color:#000000; font-weight:800; padding:16px 24px; border-radius:var(--r); border:none; display:flex; align-items:center; justify-content:center; gap:12px; font-size:1.25rem; width:100%; cursor:pointer; transition:background .15s, transform .15s; box-shadow:var(--shadow); }
+  .af-submit:hover { background:var(--orange-hover); transform:scale(1.02); }
+  
+  /* Footer */
+  .vm-footer { text-align:center; padding:32px 0; border-top:1px solid var(--hair); color:var(--muted-2); font-size:.875rem; margin-top:40px; }
+  .vm-footer a { color:var(--ink-2); font-weight:600; margin:0 8px; }
+  .vm-footer a:hover { color:var(--orange); }
+
+  /* Modal & Signature */
+  #wa-modal { position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; padding:20px; }
+  .wa-modal-content { background:var(--paper-2); padding:32px; border-radius:var(--r-lg); text-align:center; max-width:500px; box-shadow:var(--shadow-lg); }
+  .wa-modal-content h3 { font-size:1.5rem; color:var(--orange); margin-top:0; }
+  .wa-modal-content p { color:var(--muted); line-height:1.5; margin-bottom:24px; }
+  .wa-loader { display:inline-block; width:48px; height:48px; border:4px solid var(--hair); border-top-color:var(--orange); border-radius:50%; animation:spin 1s linear infinite; }
+  @keyframes spin { 100% { transform:rotate(360deg); } }
+
+  .sig-box { border:2px dashed var(--hair-2); border-radius:var(--r); background:var(--paper-3); position:relative; overflow:hidden; touch-action:none; margin-bottom:16px; }
+  .sig-watermark { position:absolute; inset:0; pointer-events:none; display:flex; align-items:center; justify-content:center; opacity:.1; }
+  .sig-watermark span { font-size:1.5rem; font-weight:900; text-transform:uppercase; letter-spacing:.1em; transform:rotate(-10deg); color:var(--muted); }
+  canvas#sig-canvas { display:block; width:100%; height:200px; cursor:crosshair; }
+  .sig-actions { display:flex; justify-content:flex-end; gap:8px; margin-bottom:24px; }
+  .sig-btn { background:transparent; border:1px solid var(--hair-2); padding:6px 12px; border-radius:var(--r-sm); font-size:0.875rem; cursor:pointer; color:var(--muted); }
+  .sig-btn:hover { background:var(--hair); color:var(--ink); }
+
+  /* PDF Content (hidden) */
+  #pdf-wrap { display:none; }
+  #pdf-content { background:#ffffff; padding:40px; font-size:.875rem; width:100%; max-width:210mm; min-height:297mm; color:#1f2937; }
+  #pdf-content * { box-sizing:border-box; }
+  #pdf-content .doc-head { margin-bottom:48px; border-bottom:2px solid var(--orange); padding-bottom:16px; display:flex; justify-content:space-between; align-items:flex-end; gap:16px; }
+  #pdf-content .doc-head h1 { font-size:1.5rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin:0; color:#1f2937; }
+  #pdf-content .doc-head p { color:#6b7280; margin:4px 0 0; }
+  #pdf-content .doc-head .right { text-align:right; font-size:.75rem; color:#6b7280; }
+  #pdf-content .doc-block { margin-bottom:32px; }
+  #pdf-content .doc-block h3 { font-weight:700; border-bottom:1px solid #d1d5db; margin:0 0 8px; padding-bottom:4px; font-size:1rem; color:#1f2937; }
+  #pdf-content .pl { padding-left:8px; }
+  #pdf-content .out-line { min-height:1.5rem; }
+  #pdf-content .out-name { font-weight:700; font-size:1rem; }
+  #pdf-content .out-muted { color:#374151; }
+  #pdf-content .doc-list { list-style:disc; padding-left:24px; margin:16px 0; }
+  #pdf-content .doc-list li { margin-bottom:4px; }
+  #pdf-content .doc-kfz { display:flex; gap:8px; padding-left:8px; }
+  #pdf-content .doc-kfz .val { font-family:monospace; background:#f3f4f6; padding:0 8px; border-radius:4px; min-width:200px; display:inline-block; }
+  #pdf-content .doc-consent { background:#fff7ed; padding:16px; border:1px solid #ffedd5; border-radius:8px; font-size:.75rem; line-height:1.6; color:#374151; margin-bottom:40px; }
+  #pdf-content .doc-sepa { border:1px solid #d1d5db; border-radius:8px; padding:16px; margin-bottom:40px; background:#f9fafb; }
+  #pdf-content .doc-sign { margin-top:64px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
+  #pdf-content .doc-sign .col { width:50%; }
+  #pdf-content .doc-sign .line { font-size:.75rem; color:#6b7280; border-top:1px solid #9ca3af; padding-top:4px; }
+  #pdf-content .doc-sign .sig-area { min-height:3rem; display:flex; align-items:flex-end; justify-content:center; position:relative; margin-bottom:4px; }
+  #pdf-content .doc-sign .sig-area img { max-height:64px; object-fit:contain; }
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js" defer></script>
+</head>
+
+<body>
+
+<!-- Header -->
+<header class="vm-header">
+  <div class="wrap">
+    <div class="row">
+      <a href={import.meta.env.BASE_URL} class="vm-back">
+        <span class="fi"><svg viewBox="0 0 448 512" fill="currentColor"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+        Zurück zur Startseite
+      </a>
+      <a href={import.meta.env.BASE_URL} class="logo" aria-label="Zulassungsdienst Kennwerk Startseite">
+        <img src={import.meta.env.BASE_URL + "assets/images/Kurve.webp"} alt="Kurve Logo" style="max-height: 48px; width: auto;">
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap vm-main" style="max-width:1152px">
+  <div class="vm-intro">
+    <div class="af-live"><span class="dot"></span> Antwort in Minuten</div>
+    <h1>Auftrag in 2 Minuten erteilen</h1>
+    <p>Spar dir den Anruf — gib deine Daten ein, wir erledigen den Rest.</p>
+  </div>
+
+  <div class="auftrag-form-wrap">
+    <!-- Progress Bar -->
+    <div class="af-progress-wrap" style="background:var(--paper-3);border-radius:10px;height:12px;margin-bottom:32px;overflow:hidden">
+      <div id="af-progress-bar" style="background:var(--orange);height:100%;width:20%;transition:width 0.4s ease"></div>
+    </div>
+
+    <form id="auftragForm" onsubmit="submitAuftrag();return false" novalidate>
+      
+      <!-- Block 1: Vorgang -->
+      <div class="af-block" id="b-vorgang">
+        <div class="af-block-head">
+          <div class="af-block-num">1</div>
+          <h2>Was möchtest du erledigen?</h2>
+        </div>
+        <div class="af-field">
+          <label>Art des Vorgangs *</label>
+          <select id="af-vorgang" required onchange="updateProgress(40)">
+            <option value="">Bitte wählen...</option>
+            <option value="Neuzulassung">Neuzulassung</option>
+            <option value="Ummeldung">Ummeldung</option>
+            <option value="Abmeldung">Abmeldung</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Rubbel-Anleitung (Nur bei Zulassung / Ummeldung / Abmeldung relevant) -->
+      <div id="rubbel-warning" style="display:none; background:#fef08a; border:1px solid #eab308; border-radius:8px; padding:20px; margin-bottom:24px; color:#854d0e;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+          <svg viewBox="0 0 512 512" fill="currentColor" width="32" height="32" style="flex-shrink:0"><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg>
+          <h3 style="margin:0; font-size:1.2rem; font-weight:900;">Achtung beim Freilegen der Sicherheitscodes!</h3>
+        </div>
+        <p style="margin:0 0 16px; font-size:0.95rem; line-height:1.5;">Bitte legen Sie die Codes auf dem Fahrzeugschein, dem Brief und den Kennzeichen extrem vorsichtig frei (abziehen oder vorsichtig rubbeln). <strong>Wenn der Code beschädigt wird, wird das Dokument komplett ungültig und Sie müssen persönlich zur Zulassungsstelle!</strong></p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:16px;">
+          <div>
+            <img src={import.meta.env.BASE_URL + "assets/images/code-zulassungsescheinigung-teil1-freigelegt.webp"} alt="Beispiel Code ZB I" style="width:100%; height:100px; object-fit:cover; border-radius:8px; border:1px solid #ca8a04;">
+            <p style="text-align:center; font-size:0.8rem; margin-top:8px; font-weight:600;">Code ZB I (Schein)</p>
+          </div>
+          <div>
+            <img src={import.meta.env.BASE_URL + "assets/images/code-zulassungsescheinigung-teil-freigelegt.webp"} alt="Beispiel Code ZB II" style="width:100%; height:100px; object-fit:cover; border-radius:8px; border:1px solid #ca8a04;">
+            <p style="text-align:center; font-size:0.8rem; margin-top:8px; font-weight:600;">Code ZB II (Brief)</p>
+          </div>
+          <div>
+            <img src={import.meta.env.BASE_URL + "assets/images/code-kennzeichen-freigelegt-hinten.webp"} alt="Beispiel Kennzeichen Plakette" style="width:100%; height:100px; object-fit:cover; border-radius:8px; border:1px solid #ca8a04;">
+            <p style="text-align:center; font-size:0.8rem; margin-top:8px; font-weight:600;">Kennzeichen-Plakette</p>
+          </div>
+        </div>
+        
+        <div style="margin-top:24px; padding-top:16px; border-top:1px dashed #ca8a04;">
+          <h4 style="margin:0 0 8px; font-size:1rem; font-weight:700;">Video-Anleitungen zum Freilegen</h4>
+          <p style="font-size:0.875rem; color:#854d0e; margin:0 0 12px; line-height:1.5;">Sie sind sich unsicher? Schauen Sie sich eine kurze Videoanleitung an (öffnet YouTube in einem neuen Fenster):</p>
+          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; font-size:0.875rem;">
+            <li><a href="https://youtu.be/eMkPIA01bxI?si=wcgK7afGFcOesacS" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; color:#b45309; font-weight:700; text-decoration:underline;"><svg viewBox="0 0 576 512" fill="currentColor" width="16" height="16"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg> Anleitung für ZB I (Fahrzeugschein)</a></li>
+            <li><a href="https://youtu.be/8E3XNec72RA?si=J3rx-0nhzehKvrV1" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; color:#b45309; font-weight:700; text-decoration:underline;"><svg viewBox="0 0 576 512" fill="currentColor" width="16" height="16"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg> Anleitung für ZB II (Fahrzeugbrief)</a></li>
+            <li><a href="https://youtu.be/5ecvgb8MMu0?si=HnF9xba8gRhSUKct" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; color:#b45309; font-weight:700; text-decoration:underline;"><svg viewBox="0 0 576 512" fill="currentColor" width="16" height="16"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg> Anleitung für Kennzeichen-Plaketten</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Dynamischer Block: Dokumente & Daten -->
+      <div id="b-dynamic" class="af-block" style="display:none;">
+        <div class="af-block-head" style="margin-bottom:8px; border-bottom:none; padding-bottom:0;">
+          <div class="af-block-num">2</div>
+          <h2>Benötigte Unterlagen & Daten</h2>
+        </div>
+        <p style="margin-top:0; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--hair-2); font-size:0.875rem; color:var(--muted); line-height:1.5;">
+          <strong>Tipp für Uploads am Handy:</strong> Wenn Sie auf einen Upload-Button tippen, können Sie entweder ein vorhandenes Bild/PDF aus Ihrer Galerie auswählen oder <strong>direkt die Kamera öffnen</strong>, um das Dokument jetzt abzufotografieren.
+        </p>
+        
+        <div class="af-grid" id="dynamic-fields">
+          <!-- Felder werden per JS eingefügt -->
+        </div>
+      </div>
+
+      <!-- Block 3: Kontaktdaten -->
+      <div class="af-block" id="b-kontakt" style="display:none;">
+        <div class="af-block-head">
+          <div class="af-block-num">3</div>
+          <h2>Deine Kontaktdaten</h2>
+        </div>
+        <div class="af-grid">
+          <div class="af-field full">
+            <label>Vorname / Nachname *</label>
+            <input type="text" id="af-name" required onchange="updateProgress(100)">
+          </div>
+          <div class="af-field">
+            <label>Straße + Hausnummer *</label>
+            <input type="text" id="af-strasse" required>
+          </div>
+          <div class="af-field">
+            <label>PLZ / Ort *</label>
+            <input type="text" id="af-ort" required>
+          </div>
+          <div class="af-field">
+            <label>Telefonnummer *</label>
+            <input type="tel" id="af-telefon" required>
+          </div>
+          <div class="af-field">
+            <label>E-Mail Adresse *</label>
+            <input type="email" id="af-email" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Area -->
+      <div class="submit-area" id="b-submit" style="display:none;">
+                <div class="af-field" style="text-align:left; max-width:600px; margin:0 auto 24px">
+          <label style="display:block; font-weight:700; margin-bottom:8px;">Ihre Unterschrift für die Vollmacht *</label>
+          <button type="button" id="open-sig-btn" class="af-submit" style="background:var(--paper-3); color:var(--ink); font-weight:600; padding:12px; font-size:1rem; box-shadow:none; border:1px solid var(--hair-2); display:flex; align-items:center; justify-content:center; gap:8px;" onclick="openSignatureModal()">
+            <svg viewBox="0 0 640 512" fill="currentColor" width="20" height="20"><path d="M623.2 192c-51.8 3.5-125.7 54.7-163.1 88.5-26.6 24-46.6 5.8-21.9-22.4 14.2-16.2 70.6-67.6 70.6-92.6 0-15.4-21-13.4-35.4-9.8-37.2 9.4-71.9 30.4-100.7 56.5-22.3 20.2-41.8 43.3-57.9 68.5-7.7 12-39.3 84.5-47.4 87.8-12.9 5.4-26.9-21.2-31.8-30.6-13.8-26.4-24.7-54.5-34.7-82.5-23.9 23.9-46.6 33.5-72.5 14.8C29.1 348.4 0 401.4 0 401.4s30.7 21.3 49.4 6.9c20.3-15.6 34-39.5 48.5-59.8 8.8 22.9 33.6 92.6 70.7 86.3 36-6.1 65.2-95.6 78.6-126.5 19.2-44.4 56.7-99.1 105.8-114.2 0 22.7-49.6 70.9-65 86.4-21.1 21.2-13.3 51.5 15.3 49.7 32.1-2 116.6-77.3 156.3-82.4 16.7-2.2 24-15.2 24-31.1 0-26.4-87.5-26.4-104-15z"/></svg>
+            Hier digital unterschreiben
+          </button>
+          <div id="sig-preview-wrap" style="display:none; text-align:center; margin-top:12px; border:1px solid #16a34a; border-radius:8px; padding:12px; background:#f0fdf4;">
+            <img id="sig-preview-img" src="" alt="Ihre Unterschrift" style="max-height:80px; mix-blend-mode:multiply;">
+          </div>
+        </div>
+
+<label class="af-check" style="text-align:left;display:inline-flex;max-width:600px;margin:0 auto 24px">
+          <input type="checkbox" id="af-dsgvo" required>
+          <span>Ich stimme der Verarbeitung meiner Daten zur Auftragsabwicklung gemäß der <a href="/datenschutz" style="text-decoration:underline;color:var(--orange)">Datenschutzerklärung</a> zu. *</span>
+        </label>
+
+        <p class="submit-tip">Nach dem Klick öffnet sich WhatsApp mit deinen Angaben und Bildern — du tippst nur noch auf Senden.</p>
+        
+        <button type="submit" class="af-submit" style="max-width:400px;margin:0 auto;width:100%">
+          <svg viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.2-157zM223.9 438.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.5-186.6 184.5zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+          Auftrag per WhatsApp senden
+        </button>
+      </div>
+
+    </form>
+  </div>
+</main>
+
+<footer class="vm-footer">
+  <div class="wrap">
+    <a href={import.meta.env.BASE_URL}>Startseite</a> | 
+    <a href="/vollmacht">Vollmacht</a> | 
+    <a href="/impressum">Impressum</a> | 
+    <a href="/datenschutz">Datenschutz</a>
+  </div>
+</footer>
+
+<script is:inline>
+  // Dynamische Felder Konfiguration
+  const fieldsConfig = {
+    'Neuzulassung': `
+      <div class="af-field full"><label>Fahrzeug-Identifikationsnummer (FIN) *</label><input type="text" id="af-fin" required maxlength="17"></div>
+      <div class="af-field"><label>Zulassungsbescheinigung Teil II (Brief) *</label><input type="file" id="af-file-zb2" accept="image/*,.pdf" required></div>
+      <div class="af-field"><label>Sicherheitscode ZB II (Brief) *</label><input type="text" id="af-code-zb2" required></div>
+      <div class="af-field"><label>COC-Papier *</label><input type="file" id="af-file-coc" accept="image/*,.pdf" required></div>
+      <div class="af-field"><label>Personalausweis (Vorder- & Rückseite) *</label><input type="file" id="af-file-ausweis" accept="image/*,.pdf" required multiple></div>
+      <div class="af-field"><label>eVB-Nummer (Versicherung) *</label><input type="text" id="af-evb" required placeholder="7-stellig"></div>
+      <div class="af-field full"><label>IBAN (für Kfz-Steuer) *</label><input type="text" id="af-iban" required placeholder="DE..."></div>
+    `,
+    'Ummeldung': `
+      <div class="af-field"><label>Sicherheitscode ZB I (Schein) *</label><input type="text" id="af-code-zb1" required></div>
+      <div class="af-field"><label>Sicherheitscode ZB II (Brief) *</label><input type="text" id="af-code-zb2" required></div>
+      <div class="af-field"><label>Aktueller TÜV/HU-Bericht *</label><input type="file" id="af-file-tuev" accept="image/*,.pdf" required></div>
+      <div class="af-field"><label>Sicherheitscodes alte Kennzeichen *</label><input type="text" id="af-code-kz" required placeholder="unter den Plaketten"></div>
+      <div class="af-field"><label>eVB-Nummer *</label><input type="text" id="af-evb" required></div>
+      <div class="af-field"><label>IBAN (Kfz-Steuer) *</label><input type="text" id="af-iban" required placeholder="DE..."></div>
+    `,
+    'Abmeldung': `
+      <div class="af-field full"><label>Sicherheitscode ZB I (Schein) *</label><input type="text" id="af-code-zb1" required></div>
+      <div class="af-field full"><label>Sicherheitscodes abgemeldete Kennzeichen *</label><input type="text" id="af-code-kz" required></div>
+    `
+  };
+
+  function updateProgress(percent) {
+    document.getElementById('af-progress-bar').style.width = percent + '%';
+  }
+
+  // --- NEU: SPA LOGIK ---
+  let signatureBase64 = null;
+
+  function openSignatureModal() {
+    document.getElementById('sig-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    initSignaturePad();
+    setTimeout(resizeCanvas, 50); 
+  }
+
+  function closeSignatureModal() {
+    document.getElementById('sig-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function confirmSignature() {
+    if(!signaturePad || signaturePad.isEmpty()) {
+      alert("Bitte unterschreiben Sie zuerst.");
+      return;
+    }
+    signatureBase64 = signaturePad.toDataURL('image/png');
+    
+    document.getElementById('sig-preview-img').src = signatureBase64;
+    document.getElementById('sig-preview-wrap').style.display = 'block';
+    
+    const btn = document.getElementById('open-sig-btn');
+    btn.innerHTML = `<svg viewBox="0 0 512 512" fill="#16a34a" width="20" height="20"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg> Unterschrift ändern`;
+    btn.style.border = "1px solid #16a34a";
+    btn.style.color = "#16a34a";
+
+    closeSignatureModal();
+  }
+
+  function syncDataToPDF() {
+    var v = function(id){ var el = document.getElementById(id); return el ? el.value : ''; };
+    document.getElementById('out-halter-name').textContent = v('af-name');
+    document.getElementById('out-halter-adresse').textContent = v('af-strasse');
+    document.getElementById('out-halter-plz').textContent = v('af-ort');
+    
+    var kfz = v('af-fin') || v('af-code-kz') || '';
+    document.getElementById('out-kfz').textContent = kfz;
+
+    document.getElementById('out-sepa-name').textContent = v('af-name');
+    document.getElementById('out-sepa-iban').textContent = v('af-iban');
+  }
+
+  document.getElementById('auftragForm').addEventListener('input', syncDataToPDF);
+
+  window.addEventListener('load', function(){
+    var today = new Date();
+    document.getElementById('out-ort-datum').textContent = 'Krefeld, den ' + today.toLocaleDateString('de-DE');
+  });
+
+  let signaturePad;
+  function initSignaturePad() {
+    if (signaturePad) return;
+    const canvas = document.getElementById('sig-canvas');
+    if(canvas) {
+      signaturePad = new SignaturePad(canvas, {
+        backgroundColor: 'rgba(255,255,255,0)',
+        penColor: 'rgb(11,26,48)'
+      });
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+    }
+  }
+  function resizeCanvas() {
+    const canvas = document.getElementById('sig-canvas');
+    if(!canvas) return;
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    const w = canvas.offsetWidth;
+    const h = canvas.offsetHeight;
+    if(canvas.width !== w * ratio || canvas.height !== h * ratio) {
+        canvas.width = w * ratio;
+        canvas.height = h * ratio;
+        canvas.getContext('2d').scale(ratio, ratio);
+        if(signaturePad) signaturePad.clear();
+    }
+  }
+  function clearSignature() {
+    if(signaturePad) signaturePad.clear();
+  }
+  // -----------------------
+
+  document.getElementById('af-vorgang').addEventListener('change', function() {
+    const val = this.value;
+    const dynamicBlock = document.getElementById('b-dynamic');
+    const dynamicFields = document.getElementById('dynamic-fields');
+    const warning = document.getElementById('rubbel-warning');
+    const kontakt = document.getElementById('b-kontakt');
+    const submit = document.getElementById('b-submit');
+    const sepaBlock = document.getElementById('doc-sepa-block');
+    
+    if (val && fieldsConfig[val]) {
+      dynamicFields.innerHTML = fieldsConfig[val];
+      dynamicBlock.style.display = 'block';
+      
+      if (val !== 'Abmeldung') {
+          warning.style.display = 'block';
+          if (sepaBlock) sepaBlock.style.display = 'block';
+      } else {
+          warning.style.display = 'none';
+          if (sepaBlock) sepaBlock.style.display = 'none';
+      }
+      
+      kontakt.style.display = 'block';
+      submit.style.display = 'block';
+      updateProgress(60);
+    } else {
+      dynamicBlock.style.display = 'none';
+      warning.style.display = 'none';
+      kontakt.style.display = 'none';
+      submit.style.display = 'none';
+      dynamicFields.innerHTML = '';
+      updateProgress(20);
+    }
+  });
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  async function submitAuftrag() {
+    let isValid = true;
+    
+    const inputs = document.querySelectorAll('#auftragForm input[required], #auftragForm select[required]');
+    inputs.forEach(el => {
+      if (el.offsetWidth > 0 && el.offsetHeight > 0) { 
+        el.classList.remove('invalid');
+        if (!el.value.trim() && el.type !== 'checkbox' && el.type !== 'file') {
+          el.classList.add('invalid');
+          isValid = false;
+        }
+        if (el.type === 'checkbox' && !el.checked) {
+          el.parentElement.classList.add('invalid');
+          isValid = false;
+        }
+      }
+    });
+
+    const emailEl = document.getElementById('af-email');
+    if (emailEl && emailEl.value.trim() && !isValidEmail(emailEl.value.trim())) {
+      emailEl.classList.add('invalid');
+      isValid = false;
+    }
+
+    if (!isValid) {
+      alert("Bitte füllen Sie alle erforderlichen Felder aus.");
+      return;
+    }
+
+    if (!signatureBase64) {
+      alert("Bitte unterschreiben Sie die Vollmacht.");
+      return;
+    }
+
+    syncDataToPDF(); 
+    const sigImg = document.getElementById('out-signature-img');
+    sigImg.src = signatureBase64;
+    sigImg.style.display = 'inline-block';
+
+    const modal = document.getElementById('wa-modal');
+    modal.style.display = 'flex';
+
+    const element = document.getElementById('pdf-content');
+    const opt = {
+      margin: 0,
+      filename: 'Vollmacht_Zulassungsdienst.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+    
+    try {
+      await html2pdf().set(opt).from(element).save();
+    } catch(err) {
+      console.error(err);
+    }
+
+    const vorgang = document.getElementById('af-vorgang').value;
+    let text = "Hallo, hier sind die Daten für meinen Zulassungsauftrag. Die soeben heruntergeladene, unterschriebene Vollmacht (inkl. SEPA-Mandat) sowie die Fotos meines Ausweises und der weiteren Fahrzeugdokumente (z. B. TÜV-Bericht oder COC) lade ich gleich hier in den Chat hoch!\n\n";
+    text += `Vorgang: *${vorgang}*\n\n`;
+    
+    const fieldsToCollect = [
+      { id: 'af-name', label: 'Name' },
+      { id: 'af-strasse', label: 'Straße' },
+      { id: 'af-ort', label: 'Ort' },
+      { id: 'af-telefon', label: 'Telefon' },
+      { id: 'af-email', label: 'E-Mail' },
+      { id: 'af-fin', label: 'FIN' },
+      { id: 'af-code-zb1', label: 'Code ZB I' },
+      { id: 'af-code-zb2', label: 'Code ZB II' },
+      { id: 'af-code-kz', label: 'Code Kennzeichen' },
+      { id: 'af-evb', label: 'eVB' },
+      { id: 'af-iban', label: 'IBAN' }
+    ];
+
+    fieldsToCollect.forEach(f => {
+      const el = document.getElementById(f.id);
+      if (el && el.value.trim() && el.offsetWidth > 0) {
+        text += `*${f.label}:* ${el.value.trim()}\n`;
+      }
+    });
+
+    const waLink = "https://wa.me/491728474357?text=" + encodeURIComponent(text);
+    
+    setTimeout(() => {
+      window.location.href = waLink;
+    }, 1500); 
+  }
+</script>
+</body>
+</html>

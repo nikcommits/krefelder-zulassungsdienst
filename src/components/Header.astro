@@ -1,0 +1,45 @@
+<header class="site">
+  <div class="wrap">
+    <div class="row">
+      <!-- Logo -->
+      <a href="index.html" class="logo" aria-label="Zulassungsdienst Kennwerk Startseite">
+        <img src={import.meta.env.BASE_URL + "assets/images/Kennwerk-Logo.png"} alt="KENNWERK Logo" style="max-height: 48px; width: auto;">
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="desktop" aria-label="Hauptnavigation">
+        <a href="auftrag.html" style="color:var(--orange)">Auftrag starten</a>
+        <a href="#preise">Preise</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="vollmacht.html" class="nav-vollmacht">
+          <span class="fi"><svg viewBox="0 0 576 512" fill="currentColor"><path d="M402.6 83.2 462 142.6 290 314.6l-72.2 8 8-72.2 172-167.2zM512 92.6 484.6 65.2c-12.5-12.5-32.8-12.5-45.3 0l-30.1 30.1 59.4 59.4 30.1-30.1c12.5-12.5 12.5-32.8 0-45.3 0-.3-.1-.5-.1-.7zM96 64C43 64 0 107 0 160v256c0 53 43 96 96 96h256c53 0 96-43 96-96v-96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/></svg></span>
+          Vollmacht
+        </a>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="head-actions">
+        <div class="head-phone">
+          <div class="label">24/7 Abhol &amp; Bring Service</div>
+          <div class="num">0172 8474357</div>
+        </div>
+        <a href="auftrag.html" class="btn btn-orange glow">
+          Auftrag starten
+        </a>
+        <!-- Hamburger -->
+        <button class="hamburger" aria-label="Menü öffnen" aria-expanded="false" onclick="toggleMenu(this)">
+          <svg viewBox="0 0 448 512" fill="currentColor"><path d="M0 96c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h384c17.7 0 32 14.3 32 32z"/></svg>
+        </button>
+      </div>
+
+      <!-- Mobile Nav -->
+      <nav class="nav-mobile" id="mobileNav" aria-label="Mobile Navigation">
+        <a href="auftrag.html" style="color:var(--orange)">Auftrag starten</a>
+        <a href="#preise" onclick="closeMenu()">Preise</a>
+        <a href="#kontakt" onclick="closeMenu()">Kontakt</a>
+        <a href="vollmacht.html">Vollmacht erstellen</a>
+        <a href="https://wa.me/491728474357" target="_blank" rel="noopener">WhatsApp Chat</a>
+      </nav>
+    </div>
+  </div>
+</header>
