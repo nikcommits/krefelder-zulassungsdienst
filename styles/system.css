@@ -165,7 +165,7 @@ header.site nav.desktop a:hover{color:var(--orange-deep)}
 .services .body{display:flex;flex-direction:column;align-items:center;gap:32px}
 .services-grid{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 16px;font-weight:700;font-size:.95rem}
 .services-grid .item{display:flex;align-items:center;gap:12px;min-width:0}
-.services-grid .chk{background:#121212;color:#00F0FF;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.services-grid .chk{background:#121212;color:#00F0FF;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .services-grid .chk svg{width:12px;height:12px}
 .evb-pill{grid-column:1/-1;display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px 8px;background:rgba(0,0,0,.15);border:1px solid rgba(0,0,0,.3);color:#000;padding:6px 12px;border-radius:var(--r-sm);width:max-content;max-width:100%;box-shadow:var(--shadow-sm)}
 .evb-pill small{font-weight:500;opacity:.85;letter-spacing:0}
@@ -371,8 +371,8 @@ footer.site a:hover{color:#fff}
 
 /* Mobile-only nav switch */
 @media (max-width:1023px){
-  header.site nav.desktop,.head-phone{display:none}
-  .hamburger{display:flex}
+  header.site nav.desktop, .head-phone, .head-actions .btn {display:none}
+  .hamburger{display:flex; margin-left:auto}
   body{padding-bottom:76px} /* room for sticky CTA */
 }
 @media (max-width:480px){
