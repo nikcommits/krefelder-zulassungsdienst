@@ -13,7 +13,7 @@ import Footer from '../components/Footer.astro';
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%231e40af%22/><text x=%2250%22 y=%2274%22 font-family=%22Arial, sans-serif%22 font-size=%2264%22 font-weight=%22bold%22 fill=%22white%22 text-anchor=%22middle%22>D</text></svg>">
-<link rel="stylesheet" href={import.meta.env.BASE_URL + "styles/system.css"}>
+<link rel="stylesheet" href={import.meta.env.BASE_URL + "/styles/system.css"}>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
@@ -23,7 +23,7 @@ import Footer from '../components/Footer.astro';
 
   <!-- Sticky Mobile CTA -->
   <div class="mobile-cta">
-    <a href={import.meta.env.BASE_URL + "auftrag"} class="btn-orange" style="border-radius:12px;flex:1.5;box-shadow:var(--glow-orange)">
+    <a href={import.meta.env.BASE_URL + "/auftrag"} class="btn-orange" style="border-radius:12px;flex:1.5;box-shadow:var(--glow-orange)">
       Auftrag starten
     </a>
     <a href="https://wa.me/491728474357" target="_blank" rel="noopener" class="btn-wa" style="border-radius:12px;flex:1">
