@@ -57,11 +57,6 @@
 
   /* Modal & Signature */
 
-  #sig-modal { position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; padding:20px; }
-  .sig-modal-content { background:var(--paper-2); padding:32px; border-radius:var(--r-lg); width:100%; max-width:600px; box-shadow:var(--shadow-lg); }
-  .sig-modal-content h3 { font-size:1.5rem; color:var(--ink); margin-top:0; }
-  .sig-modal-content p { color:var(--muted); line-height:1.5; margin-bottom:24px; }
-
   #wa-modal { position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; padding:20px; }
   .wa-modal-content { background:var(--paper-2); padding:32px; border-radius:var(--r-lg); text-align:center; max-width:500px; box-shadow:var(--shadow-lg); }
   .wa-modal-content h3 { font-size:1.5rem; color:var(--orange); margin-top:0; }
@@ -69,43 +64,10 @@
   .wa-loader { display:inline-block; width:48px; height:48px; border:4px solid var(--hair); border-top-color:var(--orange); border-radius:50%; animation:spin 1s linear infinite; }
   @keyframes spin { 100% { transform:rotate(360deg); } }
 
-  .sig-box { border:2px dashed var(--hair-2); border-radius:var(--r); background:var(--paper-3); position:relative; overflow:hidden; touch-action:none; margin-bottom:16px; }
-  .sig-watermark { position:absolute; inset:0; pointer-events:none; display:flex; align-items:center; justify-content:center; opacity:.1; }
-  .sig-watermark span { font-size:1.5rem; font-weight:900; text-transform:uppercase; letter-spacing:.1em; transform:rotate(-10deg); color:var(--muted); }
-  canvas#sig-canvas { display:block; width:100%; height:200px; cursor:crosshair; }
-  .sig-actions { display:flex; justify-content:flex-end; gap:8px; margin-bottom:24px; }
-  .sig-btn { background:transparent; border:1px solid var(--hair-2); padding:6px 12px; border-radius:var(--r-sm); font-size:0.875rem; cursor:pointer; color:var(--muted); }
-  .sig-btn:hover { background:var(--hair); color:var(--ink); }
-
-  /* PDF Content (hidden) */
-  #pdf-wrap { display:none; }
-  #pdf-content { background:#ffffff; padding:40px; font-size:.875rem; width:100%; max-width:210mm; min-height:297mm; color:#1f2937; }
-  #pdf-content * { box-sizing:border-box; }
-  #pdf-content .doc-head { margin-bottom:48px; border-bottom:2px solid var(--orange); padding-bottom:16px; display:flex; justify-content:space-between; align-items:flex-end; gap:16px; }
-  #pdf-content .doc-head h1 { font-size:1.5rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin:0; color:#1f2937; }
-  #pdf-content .doc-head p { color:#6b7280; margin:4px 0 0; }
-  #pdf-content .doc-head .right { text-align:right; font-size:.75rem; color:#6b7280; }
-  #pdf-content .doc-block { margin-bottom:32px; }
-  #pdf-content .doc-block h3 { font-weight:700; border-bottom:1px solid #d1d5db; margin:0 0 8px; padding-bottom:4px; font-size:1rem; color:#1f2937; }
-  #pdf-content .pl { padding-left:8px; }
-  #pdf-content .out-line { min-height:1.5rem; }
-  #pdf-content .out-name { font-weight:700; font-size:1rem; }
-  #pdf-content .out-muted { color:#374151; }
-  #pdf-content .doc-list { list-style:disc; padding-left:24px; margin:16px 0; }
-  #pdf-content .doc-list li { margin-bottom:4px; }
-  #pdf-content .doc-kfz { display:flex; gap:8px; padding-left:8px; }
-  #pdf-content .doc-kfz .val { font-family:monospace; background:#f3f4f6; padding:0 8px; border-radius:4px; min-width:200px; display:inline-block; }
-  #pdf-content .doc-consent { background:#fff7ed; padding:16px; border:1px solid #ffedd5; border-radius:8px; font-size:.75rem; line-height:1.6; color:#374151; margin-bottom:40px; }
-  #pdf-content .doc-sepa { border:1px solid #d1d5db; border-radius:8px; padding:16px; margin-bottom:40px; background:#f9fafb; }
-  #pdf-content .doc-sign { margin-top:64px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
-  #pdf-content .doc-sign .col { width:50%; }
-  #pdf-content .doc-sign .line { font-size:.75rem; color:#6b7280; border-top:1px solid #9ca3af; padding-top:4px; }
-  #pdf-content .doc-sign .sig-area { min-height:3rem; display:flex; align-items:flex-end; justify-content:center; position:relative; margin-bottom:4px; }
-  #pdf-content .doc-sign .sig-area img { max-height:64px; object-fit:contain; }
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js" defer></script>
 </head>
 
@@ -244,18 +206,19 @@
           <div style="display:grid; gap:16px; margin-bottom:16px;">
             <!-- Option A -->
             <label style="display:flex; gap:12px; padding:16px; border:2px solid var(--orange); border-radius:12px; background:var(--paper-2); cursor:pointer; align-items:flex-start; transition:all 0.2s ease;">
-              <input type="radio" name="sig-option" value="digital" checked style="margin-top:4px;" onchange="toggleSigOption()">
-              <div style="flex:1;">
+              <input type="radio" name="sig-option" value="digital" checked style="margin-top:4px; flex-shrink:0;" onchange="toggleSigOption()">
+              <div style="flex:1; min-width:0;">
                 <strong style="display:block; margin-bottom:4px; color:var(--ink);">Option A: Digital unterschreiben (Empfohlen)</strong>
-                <span style="font-size:0.875rem; color:var(--muted); line-height:1.4;">Unterschreiben Sie direkt jetzt hier auf dem Bildschirm. Schnell und papierlos.</span>
+                <span style="display:block; font-size:0.875rem; color:var(--muted); line-height:1.4;">Unterschreiben Sie direkt jetzt hier auf dem Bildschirm. Schnell und papierlos.</span>
                 
                 <div id="digital-sig-ui" style="margin-top:12px;">
                   <button type="button" id="open-sig-btn" class="af-submit" style="background:var(--paper-3); color:var(--ink); font-weight:600; padding:12px; font-size:0.95rem; box-shadow:none; border:1px solid var(--hair-2); display:flex; align-items:center; justify-content:center; gap:8px;" onclick="openSignatureModal()">
-                    <svg viewBox="0 0 640 512" fill="currentColor" width="20" height="20"><path d="M623.2 192c-51.8 3.5-125.7 54.7-163.1 88.5-26.6 24-46.6 5.8-21.9-22.4 14.2-16.2 70.6-67.6 70.6-92.6 0-15.4-21-13.4-35.4-9.8-37.2 9.4-71.9 30.4-100.7 56.5-22.3 20.2-41.8 43.3-57.9 68.5-7.7 12-39.3 84.5-47.4 87.8-12.9 5.4-26.9-21.2-31.8-30.6-13.8-26.4-24.7-54.5-34.7-82.5-23.9 23.9-46.6 33.5-72.5 14.8C29.1 348.4 0 401.4 0 401.4s30.7 21.3 49.4 6.9c20.3-15.6 34-39.5 48.5-59.8 8.8 22.9 33.6 92.6 70.7 86.3 36-6.1 65.2-95.6 78.6-126.5 19.2-44.4 56.7-99.1 105.8-114.2 0 22.7-49.6 70.9-65 86.4-21.1 21.2-13.3 51.5 15.3 49.7 32.1-2 116.6-77.3 156.3-82.4 16.7-2.2 24-15.2 24-31.1 0-26.4-87.5-26.4-104-15z"/></svg>
+                    <svg viewBox="0 0 640 512" fill="currentColor" width="20" height="20" style="flex-shrink:0"><path d="M623.2 192c-51.8 3.5-125.7 54.7-163.1 88.5-26.6 24-46.6 5.8-21.9-22.4 14.2-16.2 70.6-67.6 70.6-92.6 0-15.4-21-13.4-35.4-9.8-37.2 9.4-71.9 30.4-100.7 56.5-22.3 20.2-41.8 43.3-57.9 68.5-7.7 12-39.3 84.5-47.4 87.8-12.9 5.4-26.9-21.2-31.8-30.6-13.8-26.4-24.7-54.5-34.7-82.5-23.9 23.9-46.6 33.5-72.5 14.8C29.1 348.4 0 401.4 0 401.4s30.7 21.3 49.4 6.9c20.3-15.6 34-39.5 48.5-59.8 8.8 22.9 33.6 92.6 70.7 86.3 36-6.1 65.2-95.6 78.6-126.5 19.2-44.4 56.7-99.1 105.8-114.2 0 22.7-49.6 70.9-65 86.4-21.1 21.2-13.3 51.5 15.3 49.7 32.1-2 116.6-77.3 156.3-82.4 16.7-2.2 24-15.2 24-31.1 0-26.4-87.5-26.4-104-15z"/></svg>
                     Hier digital unterschreiben
                   </button>
+                  <p style="font-size:0.8rem; color:var(--muted); margin:10px 0 0; line-height:1.4;">⚠️ Probleme beim digitalen Unterschreiben? Kein Problem — wählen Sie unten <strong>Option B</strong>. Dann erhalten Sie den vollständigen Antrag als PDF: einfach ausdrucken, von Hand unterschreiben, abfotografieren und per WhatsApp an uns senden.</p>
                   <div id="sig-preview-wrap" style="display:none; text-align:center; margin-top:12px; border:1px solid #16a34a; border-radius:8px; padding:12px; background:#f0fdf4;">
-                    <img id="sig-preview-img" src="" alt="Ihre Unterschrift" style="max-height:80px; mix-blend-mode:multiply;">
+                    <img id="sig-preview-img" src="" alt="Ihre Unterschrift" style="max-height:80px; mix-blend-mode:multiply; max-width:100%;">
                   </div>
                 </div>
               </div>
@@ -263,10 +226,10 @@
 
             <!-- Option B -->
             <label style="display:flex; gap:12px; padding:16px; border:1px solid var(--hair-2); border-radius:12px; background:var(--paper-1); cursor:pointer; align-items:flex-start; transition:all 0.2s ease;">
-              <input type="radio" name="sig-option" value="analog" style="margin-top:4px;" onchange="toggleSigOption()">
-              <div style="flex:1;">
+              <input type="radio" name="sig-option" value="analog" style="margin-top:4px; flex-shrink:0;" onchange="toggleSigOption()">
+              <div style="flex:1; min-width:0;">
                 <strong style="display:block; margin-bottom:4px; color:var(--ink);">Option B: Klassisch (Drucken & Fotografieren)</strong>
-                <span style="font-size:0.875rem; color:var(--muted); line-height:1.4;">Falls das Zeichnen am Handy nicht klappt: Sie erhalten am Ende ein PDF, das Sie selbst ausdrucken, per Hand unterschreiben und danach per WhatsApp an uns senden.</span>
+                <span style="display:block; font-size:0.875rem; color:var(--muted); line-height:1.4;">Falls das Zeichnen am Handy nicht klappt: Sie erhalten am Ende den vollständigen Antrag als PDF, das Sie selbst ausdrucken, per Hand unterschreiben und danach per WhatsApp an uns senden.</span>
               </div>
             </label>
           </div>
@@ -300,8 +263,8 @@
 
 <!-- Signature Virtual Page -->
   <style>
-    #sig-page { display:none; position:fixed; top:0; left:0; width:100vw; height:100dvh; background:var(--paper-2); color:var(--ink); z-index:9999; flex-direction:column; padding:20px; box-sizing:border-box; }
-    @media (orientation: landscape) {
+    #sig-page { display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; height:100dvh; background:var(--paper-2); color:var(--ink); z-index:9999; flex-direction:column; padding:20px; box-sizing:border-box; }
+    @media (orientation: landscape) and (max-height: 600px) {
       #sig-page .hide-landscape { display: none !important; }
       #sig-page { padding: 12px; }
       #sig-page .sig-buttons { margin-top: 8px !important; }
@@ -314,8 +277,9 @@
       Bitte drehen Sie Ihr Smartphone für eine optimale Unterschrift quer!
     </div>
     <p class="hide-landscape" style="text-align:center; margin-top:0; margin-bottom:12px; font-size:0.9rem;">Ihre Unterschrift gilt als offizielle Vollmacht für unseren Zulassungsdienst.</p>
-    <div style="border:2px dashed var(--hair-2); border-radius:var(--r-md); background:#fafafa; position:relative; flex:1; touch-action:none; overflow:hidden;">
-      <canvas id="sig-canvas" style="width:100%; height:100%; display:block; border-radius:inherit;"></canvas>
+    <p class="hide-landscape" style="text-align:center; margin-top:0; margin-bottom:12px; font-size:0.8rem; color:var(--muted);">⚠️ Probleme beim Zeichnen? Brechen Sie ab und wählen Sie stattdessen <strong>Option B</strong> (Drucken & Fotografieren) im Formular.</p>
+    <div style="border:2px dashed var(--hair-2); border-radius:var(--r-md); background:#fafafa; position:relative; flex:1 1 auto; min-height: 250px; touch-action:none; overflow:hidden; display:flex; flex-direction:column;">
+      <canvas id="sig-canvas" style="width:100%; flex:1; display:block; border-radius:inherit;"></canvas>
     </div>
     <div class="sig-buttons" style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:16px;">
       <button type="button" class="af-submit" style="background:var(--paper-3); color:var(--ink); box-shadow:none; border:1px solid var(--hair-2); width:auto; padding:12px 24px;" onclick="clearSignature()">Löschen</button>
@@ -412,26 +376,6 @@
     history.back(); // Triggers popstate which calls closeSignatureModal()
   }
 
-  function syncDataToPDF() {
-    var v = function(id){ var el = document.getElementById(id); return el ? el.value : ''; };
-    document.getElementById('out-halter-name').textContent = v('af-name');
-    document.getElementById('out-halter-adresse').textContent = v('af-strasse');
-    document.getElementById('out-halter-plz').textContent = v('af-ort');
-    
-    var kfz = v('af-fin') || v('af-code-kz') || '';
-    document.getElementById('out-kfz').textContent = kfz;
-
-    document.getElementById('out-sepa-name').textContent = v('af-name');
-    document.getElementById('out-sepa-iban').textContent = v('af-iban');
-  }
-
-  document.getElementById('auftragForm').addEventListener('input', syncDataToPDF);
-
-  window.addEventListener('load', function(){
-    var today = new Date();
-    document.getElementById('out-ort-datum').textContent = 'Krefeld, den ' + today.toLocaleDateString('de-DE');
-  });
-
   let signaturePad;
   function initSignaturePad() {
     if (signaturePad) return;
@@ -473,18 +417,15 @@
     const warning = document.getElementById('rubbel-warning');
     const kontakt = document.getElementById('b-kontakt');
     const submit = document.getElementById('b-submit');
-    const sepaBlock = document.getElementById('doc-sepa-block');
-    
+
     if (val && fieldsConfig[val]) {
       dynamicFields.innerHTML = fieldsConfig[val];
       dynamicBlock.style.display = 'block';
-      
+
       if (val !== 'Abmeldung') {
           warning.style.display = 'block';
-          if (sepaBlock) sepaBlock.style.display = 'block';
       } else {
           warning.style.display = 'none';
-          if (sepaBlock) sepaBlock.style.display = 'none';
       }
       
       kontakt.style.display = 'block';
@@ -525,6 +466,195 @@
     }
   }
 
+  function loadImageSize(src) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve({ w: img.naturalWidth, h: img.naturalHeight });
+      img.src = src;
+    });
+  }
+
+  async function generatePdf(data) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    const marginX = 18;
+    const contentW = 210 - marginX * 2;
+    let y = 20;
+
+    const heading = (text) => {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.setTextColor(31, 41, 55);
+      doc.text(text, marginX, y);
+      y += 2;
+      doc.setDrawColor(209, 213, 219);
+      doc.line(marginX, y, marginX + contentW, y);
+      y += 6;
+    };
+
+    const bodyText = (text, size = 9) => {
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(size);
+      doc.setTextColor(55, 65, 81);
+      const lines = doc.splitTextToSize(text, contentW);
+      doc.text(lines, marginX, y);
+      y += lines.length * (size * 0.45) + 3;
+    };
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(18);
+    doc.setTextColor(31, 41, 55);
+    doc.text('Auftrag & Vollmacht', marginX, y);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(107, 114, 128);
+    doc.text('zur Vorlage bei der Kfz-Zulassungsbehörde', marginX, y + 6);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.setTextColor(31, 41, 55);
+    doc.text('Zulassungsdienst Kennwerk', marginX + contentW, y, { align: 'right' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(107, 114, 128);
+    doc.text('Grüner Dyk 70', marginX + contentW, y + 5, { align: 'right' });
+    doc.text('47803 Krefeld', marginX + contentW, y + 10, { align: 'right' });
+
+    y += 16;
+    doc.setDrawColor(0, 240, 255);
+    doc.setLineWidth(0.6);
+    doc.line(marginX, y, marginX + contentW, y);
+    doc.setLineWidth(0.2);
+    y += 10;
+
+    heading('Vollmachtgeber (Fahrzeughalter/in)');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.setTextColor(31, 41, 55);
+    doc.text(data.name || '-', marginX + 2, y);
+    y += 5;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(55, 65, 81);
+    doc.text(data.strasse || '-', marginX + 2, y);
+    y += 5;
+    doc.text(data.ort || '-', marginX + 2, y);
+    y += 10;
+
+    heading('Bevollmächtigte(r)');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.setTextColor(31, 41, 55);
+    doc.text('Omar Zouaoui (Zulassungsdienst Kennwerk)', marginX + 2, y);
+    y += 5;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(55, 65, 81);
+    doc.text('Grüner Dyk 70', marginX + 2, y);
+    y += 5;
+    doc.text('47803 Krefeld', marginX + 2, y);
+    y += 10;
+
+    bodyText('Hiermit bevollmächtige ich die oben genannte Person, mein Kraftfahrzeug bei der Zulassungsbehörde');
+    const bullets = [
+      'zuzulassen / umzumelden',
+      'außer Betrieb zu setzen (abzumelden)',
+      'Fahrzeugpapiere oder Ersatzpapiere zu beantragen und in Empfang zu nehmen',
+      'Wunschkennzeichen zu reservieren'
+    ];
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(55, 65, 81);
+    bullets.forEach(b => {
+      const lines = doc.splitTextToSize(b, contentW - 8);
+      doc.text('•', marginX + 2, y);
+      doc.text(lines, marginX + 7, y);
+      y += lines.length * 4.2 + 1.5;
+    });
+    y += 4;
+
+    heading('Angaben zum Fahrzeug (falls bekannt)');
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(55, 65, 81);
+    doc.text('Kennzeichen / FIN:', marginX + 2, y);
+    doc.setFont('courier', 'normal');
+    doc.text(data.kfz || '-', marginX + 50, y);
+    y += 10;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    const consentText = 'Einwilligung: Der/Die Bevollmächtigte ist berechtigt, Untervollmacht zu erteilen. Ich erkläre mich damit einverstanden, dass der bevollmächtigten Person meine Kraftfahrzeugsteuerrückstände sowie rückständige Gebühren und Auslagen aus vorhergehenden Zulassungsvorgängen mitgeteilt werden dürfen.';
+    const consentLines = doc.splitTextToSize(consentText, contentW - 8);
+    const consentH = consentLines.length * 3.8 + 8;
+    doc.setFillColor(255, 247, 237);
+    doc.setDrawColor(255, 237, 213);
+    doc.roundedRect(marginX, y, contentW, consentH, 2, 2, 'FD');
+    doc.setTextColor(55, 65, 81);
+    doc.text(consentLines, marginX + 4, y + 6);
+    y += consentH + 8;
+
+    if (data.showSepa) {
+      doc.setFontSize(8);
+      const sepaIntro = 'Ich ermächtige das zuständige Hauptzollamt, Zahlungen von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Hauptzollamt auf mein Konto gezogenen Lastschriften einzulösen.';
+      const sepaLines = doc.splitTextToSize(sepaIntro, contentW - 8);
+      const sepaH = 8 + sepaLines.length * 3.8 + 14;
+      doc.setFillColor(249, 250, 251);
+      doc.setDrawColor(209, 213, 219);
+      doc.roundedRect(marginX, y, contentW, sepaH, 2, 2, 'FD');
+      let sy = y + 6;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(31, 41, 55);
+      doc.text('SEPA-Lastschriftmandat für Kfz-Steuer', marginX + 4, sy);
+      sy += 5;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(55, 65, 81);
+      doc.text(sepaLines, marginX + 4, sy);
+      sy += sepaLines.length * 3.8 + 4;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.text('Kontoinhaber:', marginX + 4, sy);
+      doc.setFont('courier', 'normal');
+      doc.text(data.name || '-', marginX + 32, sy);
+      sy += 5;
+      doc.setFont('helvetica', 'bold');
+      doc.text('IBAN:', marginX + 4, sy);
+      doc.setFont('courier', 'normal');
+      doc.text(data.iban || '-', marginX + 32, sy);
+      y += sepaH + 10;
+    }
+
+    const sigY = Math.max(y, 250);
+    const todayStr = 'Krefeld, den ' + new Date().toLocaleDateString('de-DE');
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(31, 41, 55);
+    doc.text(todayStr, marginX, sigY);
+    doc.setDrawColor(156, 163, 175);
+    doc.line(marginX, sigY + 3, marginX + contentW * 0.45, sigY + 3);
+    doc.setFontSize(7.5);
+    doc.setTextColor(107, 114, 128);
+    doc.text('Ort, Datum', marginX, sigY + 7);
+
+    const sigColX = marginX + contentW * 0.55;
+    const sigColW = contentW * 0.45;
+    if (data.signature) {
+      const dim = await loadImageSize(data.signature);
+      const maxW = sigColW, maxH = 16;
+      let w = maxW, h = w * (dim.h / dim.w);
+      if (h > maxH) { h = maxH; w = h * (dim.w / dim.h); }
+      doc.addImage(data.signature, 'PNG', sigColX + (sigColW - w), sigY - h - 2, w, h);
+    }
+    doc.line(sigColX, sigY + 3, sigColX + sigColW, sigY + 3);
+    doc.setFontSize(7.5);
+    doc.setTextColor(107, 114, 128);
+    doc.text('Unterschrift des Vollmachtgebers', sigColX + sigColW, sigY + 7, { align: 'right' });
+
+    doc.save('Vollmacht_Zulassungsdienst.pdf');
+  }
+
   async function submitAuftrag() {
     let isValid = true;
     
@@ -561,40 +691,30 @@
       return;
     }
 
-    syncDataToPDF(); 
-    const sigImg = document.getElementById('out-signature-img');
-    if (isDigital && signatureBase64) {
-      sigImg.src = signatureBase64;
-      sigImg.style.display = 'inline-block';
-    } else {
-      sigImg.style.display = 'none';
-    }
-
     const modal = document.getElementById('wa-modal');
     modal.style.display = 'flex';
 
-    const element = document.getElementById('pdf-content');
-    const opt = {
-      margin: 0,
-      filename: 'Vollmacht_Zulassungsdienst.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-    };
-    
+    const vorgang = document.getElementById('af-vorgang').value;
     try {
-      await html2pdf().set(opt).from(element).save();
+      await generatePdf({
+        name: document.getElementById('af-name').value,
+        strasse: document.getElementById('af-strasse').value,
+        ort: document.getElementById('af-ort').value,
+        kfz: (document.getElementById('af-fin')?.value || document.getElementById('af-code-kz')?.value || ''),
+        iban: (document.getElementById('af-iban')?.value || ''),
+        showSepa: vorgang !== 'Abmeldung',
+        signature: (isDigital && signatureBase64) ? signatureBase64 : null
+      });
     } catch(err) {
       console.error(err);
     }
 
-    const vorgang = document.getElementById('af-vorgang').value;
     const isDigitalMsg = document.querySelector('input[name="sig-option"]:checked').value === 'digital';
     
     let text = "Hallo, hier sind die Daten für meinen Zulassungsauftrag. Die soeben heruntergeladene Vollmacht (inkl. SEPA-Mandat) sowie die Fotos meines Ausweises und der weiteren Fahrzeugdokumente lade ich gleich hier in den Chat hoch!\n\n";
     
     if (!isDigitalMsg) {
-      text += "⚠️ *WICHTIG:* Ich habe Option B gewählt. Ich drucke die Vollmacht jetzt aus, unterschreibe sie per Hand und sende das Foto der unterschriebenen Vollmacht mit den anderen Dokumenten!\n\n";
+      text += "⚠️ *WICHTIG:* Ich habe Option B gewählt. Ich drucke den vollständigen Antrag jetzt aus, unterschreibe ihn per Hand und sende das Foto des unterschriebenen Antrags mit den anderen Dokumenten!\n\n";
     }
 
     text += `Vorgang: *${vorgang}*\n\n`;
