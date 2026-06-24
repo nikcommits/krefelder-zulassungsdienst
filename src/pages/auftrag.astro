@@ -238,14 +238,37 @@
 
       <!-- Submit Area -->
       <div class="submit-area" id="b-submit" style="display:none;">
-                <div class="af-field" style="text-align:left; max-width:600px; margin:0 auto 24px">
-          <label style="display:block; font-weight:700; margin-bottom:8px;">Ihre Unterschrift für die Vollmacht *</label>
-          <button type="button" id="open-sig-btn" class="af-submit" style="background:var(--paper-3); color:var(--ink); font-weight:600; padding:12px; font-size:1rem; box-shadow:none; border:1px solid var(--hair-2); display:flex; align-items:center; justify-content:center; gap:8px;" onclick="openSignatureModal()">
-            <svg viewBox="0 0 640 512" fill="currentColor" width="20" height="20"><path d="M623.2 192c-51.8 3.5-125.7 54.7-163.1 88.5-26.6 24-46.6 5.8-21.9-22.4 14.2-16.2 70.6-67.6 70.6-92.6 0-15.4-21-13.4-35.4-9.8-37.2 9.4-71.9 30.4-100.7 56.5-22.3 20.2-41.8 43.3-57.9 68.5-7.7 12-39.3 84.5-47.4 87.8-12.9 5.4-26.9-21.2-31.8-30.6-13.8-26.4-24.7-54.5-34.7-82.5-23.9 23.9-46.6 33.5-72.5 14.8C29.1 348.4 0 401.4 0 401.4s30.7 21.3 49.4 6.9c20.3-15.6 34-39.5 48.5-59.8 8.8 22.9 33.6 92.6 70.7 86.3 36-6.1 65.2-95.6 78.6-126.5 19.2-44.4 56.7-99.1 105.8-114.2 0 22.7-49.6 70.9-65 86.4-21.1 21.2-13.3 51.5 15.3 49.7 32.1-2 116.6-77.3 156.3-82.4 16.7-2.2 24-15.2 24-31.1 0-26.4-87.5-26.4-104-15z"/></svg>
-            Hier digital unterschreiben
-          </button>
-          <div id="sig-preview-wrap" style="display:none; text-align:center; margin-top:12px; border:1px solid #16a34a; border-radius:8px; padding:12px; background:#f0fdf4;">
-            <img id="sig-preview-img" src="" alt="Ihre Unterschrift" style="max-height:80px; mix-blend-mode:multiply;">
+        <div class="af-field" style="text-align:left; max-width:600px; margin:0 auto 24px">
+          <label style="display:block; font-weight:700; margin-bottom:12px; font-size:1.1rem;">Wie möchten Sie unterschreiben? *</label>
+          
+          <div style="display:grid; gap:16px; margin-bottom:16px;">
+            <!-- Option A -->
+            <label style="display:flex; gap:12px; padding:16px; border:2px solid var(--orange); border-radius:12px; background:var(--paper-2); cursor:pointer; align-items:flex-start; transition:all 0.2s ease;">
+              <input type="radio" name="sig-option" value="digital" checked style="margin-top:4px;" onchange="toggleSigOption()">
+              <div style="flex:1;">
+                <strong style="display:block; margin-bottom:4px; color:var(--ink);">Option A: Digital unterschreiben (Empfohlen)</strong>
+                <span style="font-size:0.875rem; color:var(--muted); line-height:1.4;">Unterschreiben Sie direkt jetzt hier auf dem Bildschirm. Schnell und papierlos.</span>
+                
+                <div id="digital-sig-ui" style="margin-top:12px;">
+                  <button type="button" id="open-sig-btn" class="af-submit" style="background:var(--paper-3); color:var(--ink); font-weight:600; padding:12px; font-size:0.95rem; box-shadow:none; border:1px solid var(--hair-2); display:flex; align-items:center; justify-content:center; gap:8px;" onclick="openSignatureModal()">
+                    <svg viewBox="0 0 640 512" fill="currentColor" width="20" height="20"><path d="M623.2 192c-51.8 3.5-125.7 54.7-163.1 88.5-26.6 24-46.6 5.8-21.9-22.4 14.2-16.2 70.6-67.6 70.6-92.6 0-15.4-21-13.4-35.4-9.8-37.2 9.4-71.9 30.4-100.7 56.5-22.3 20.2-41.8 43.3-57.9 68.5-7.7 12-39.3 84.5-47.4 87.8-12.9 5.4-26.9-21.2-31.8-30.6-13.8-26.4-24.7-54.5-34.7-82.5-23.9 23.9-46.6 33.5-72.5 14.8C29.1 348.4 0 401.4 0 401.4s30.7 21.3 49.4 6.9c20.3-15.6 34-39.5 48.5-59.8 8.8 22.9 33.6 92.6 70.7 86.3 36-6.1 65.2-95.6 78.6-126.5 19.2-44.4 56.7-99.1 105.8-114.2 0 22.7-49.6 70.9-65 86.4-21.1 21.2-13.3 51.5 15.3 49.7 32.1-2 116.6-77.3 156.3-82.4 16.7-2.2 24-15.2 24-31.1 0-26.4-87.5-26.4-104-15z"/></svg>
+                    Hier digital unterschreiben
+                  </button>
+                  <div id="sig-preview-wrap" style="display:none; text-align:center; margin-top:12px; border:1px solid #16a34a; border-radius:8px; padding:12px; background:#f0fdf4;">
+                    <img id="sig-preview-img" src="" alt="Ihre Unterschrift" style="max-height:80px; mix-blend-mode:multiply;">
+                  </div>
+                </div>
+              </div>
+            </label>
+
+            <!-- Option B -->
+            <label style="display:flex; gap:12px; padding:16px; border:1px solid var(--hair-2); border-radius:12px; background:var(--paper-1); cursor:pointer; align-items:flex-start; transition:all 0.2s ease;">
+              <input type="radio" name="sig-option" value="analog" style="margin-top:4px;" onchange="toggleSigOption()">
+              <div style="flex:1;">
+                <strong style="display:block; margin-bottom:4px; color:var(--ink);">Option B: Klassisch (Drucken & Fotografieren)</strong>
+                <span style="font-size:0.875rem; color:var(--muted); line-height:1.4;">Falls das Zeichnen am Handy nicht klappt: Sie erhalten am Ende ein PDF, das Sie selbst ausdrucken, per Hand unterschreiben und danach per WhatsApp an uns senden.</span>
+              </div>
+            </label>
           </div>
         </div>
 
@@ -481,6 +504,27 @@
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
+  function toggleSigOption() {
+    const isDigital = document.querySelector('input[name="sig-option"]:checked').value === 'digital';
+    const digitalUI = document.getElementById('digital-sig-ui');
+    const optionALabel = digitalUI.parentElement.parentElement;
+    const optionBLabel = document.querySelector('input[value="analog"]').parentElement;
+    
+    if (isDigital) {
+      digitalUI.style.display = 'block';
+      optionALabel.style.border = '2px solid var(--orange)';
+      optionALabel.style.background = 'var(--paper-2)';
+      optionBLabel.style.border = '1px solid var(--hair-2)';
+      optionBLabel.style.background = 'var(--paper-1)';
+    } else {
+      digitalUI.style.display = 'none';
+      optionALabel.style.border = '1px solid var(--hair-2)';
+      optionALabel.style.background = 'var(--paper-1)';
+      optionBLabel.style.border = '2px solid var(--orange)';
+      optionBLabel.style.background = 'var(--paper-2)';
+    }
+  }
+
   async function submitAuftrag() {
     let isValid = true;
     
@@ -510,15 +554,21 @@
       return;
     }
 
-    if (!signatureBase64) {
-      alert("Bitte unterschreiben Sie die Vollmacht.");
+    const isDigital = document.querySelector('input[name="sig-option"]:checked').value === 'digital';
+
+    if (isDigital && !signatureBase64) {
+      alert("Bitte unterschreiben Sie die Vollmacht digital oder wählen Sie Option B.");
       return;
     }
 
     syncDataToPDF(); 
     const sigImg = document.getElementById('out-signature-img');
-    sigImg.src = signatureBase64;
-    sigImg.style.display = 'inline-block';
+    if (isDigital && signatureBase64) {
+      sigImg.src = signatureBase64;
+      sigImg.style.display = 'inline-block';
+    } else {
+      sigImg.style.display = 'none';
+    }
 
     const modal = document.getElementById('wa-modal');
     modal.style.display = 'flex';
@@ -539,7 +589,14 @@
     }
 
     const vorgang = document.getElementById('af-vorgang').value;
-    let text = "Hallo, hier sind die Daten für meinen Zulassungsauftrag. Die soeben heruntergeladene, unterschriebene Vollmacht (inkl. SEPA-Mandat) sowie die Fotos meines Ausweises und der weiteren Fahrzeugdokumente (z. B. TÜV-Bericht oder COC) lade ich gleich hier in den Chat hoch!\n\n";
+    const isDigitalMsg = document.querySelector('input[name="sig-option"]:checked').value === 'digital';
+    
+    let text = "Hallo, hier sind die Daten für meinen Zulassungsauftrag. Die soeben heruntergeladene Vollmacht (inkl. SEPA-Mandat) sowie die Fotos meines Ausweises und der weiteren Fahrzeugdokumente lade ich gleich hier in den Chat hoch!\n\n";
+    
+    if (!isDigitalMsg) {
+      text += "⚠️ *WICHTIG:* Ich habe Option B gewählt. Ich drucke die Vollmacht jetzt aus, unterschreibe sie per Hand und sende das Foto der unterschriebenen Vollmacht mit den anderen Dokumenten!\n\n";
+    }
+
     text += `Vorgang: *${vorgang}*\n\n`;
     
     const fieldsToCollect = [
