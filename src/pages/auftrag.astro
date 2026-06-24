@@ -275,31 +275,23 @@
   </div>
 </footer>
 
-
-
-<!-- Signature Modal -->
-<div id="sig-modal" style="display:none;">
-  <div class="sig-modal-content">
-    <h3>Unterschrift</h3>
-    
-    <div class="landscape-hint">
-      <svg viewBox="0 0 512 512"><path d="M320 0H192C156.7 0 128 28.7 128 64v384c0 35.3 28.7 64 64 64h128c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm32 448c0 17.6-14.4 32-32 32H192c-17.6 0-32-14.4-32-32V64c0-17.6 14.4-32 32-32h128c17.6 0 32 14.4 32 32v384z"/></svg>
+<!-- Signature Virtual Page -->
+  <div id="sig-page" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100dvh; background:#fff; z-index:9999; flex-direction:column; padding:20px; box-sizing:border-box;">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:1.5rem; text-align:center;">Unterschrift</h3>
+    <div class="landscape-hint" style="text-align:center; background:#fef08a; color:#ca8a04; padding:8px; border-radius:8px; font-weight:bold; margin-bottom:12px; font-size:0.9rem;">
+      <svg viewBox="0 0 512 512" width="16" height="16" fill="currentColor" style="vertical-align:middle; margin-right:4px;"><path d="M320 0H192C156.7 0 128 28.7 128 64v384c0 35.3 28.7 64 64 64h128c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm32 448c0 17.6-14.4 32-32 32H192c-17.6 0-32-14.4-32-32V64c0-17.6 14.4-32 32-32h128c17.6 0 32 14.4 32 32v384z"></path></svg>
       Bitte drehen Sie Ihr Smartphone für eine optimale Unterschrift quer!
     </div>
-
-    <p style="text-align:left; margin-bottom:12px;">Ihre Unterschrift gilt als offizielle Vollmacht für unseren Zulassungsdienst.</p>
-    
-    <div style="border:2px dashed var(--hair-2); border-radius:var(--r-md); background:#fff; margin-bottom:16px; position:relative; flex:1; touch-action:none; overflow:hidden;">
+    <p style="text-align:center; margin-top:0; margin-bottom:12px; font-size:0.9rem;">Ihre Unterschrift gilt als offizielle Vollmacht für unseren Zulassungsdienst.</p>
+    <div style="border:2px dashed var(--hair-2); border-radius:var(--r-md); background:#fafafa; margin-bottom:16px; position:relative; flex:1; touch-action:none; overflow:hidden;">
       <canvas id="sig-canvas" style="width:100%; height:100%; display:block; border-radius:inherit;"></canvas>
     </div>
-    
-    <div style="display:flex; gap:12px; justify-content:flex-end; flex-wrap:wrap;">
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
       <button type="button" class="af-submit" style="background:var(--paper-3); color:var(--ink); box-shadow:none; border:1px solid var(--hair-2); width:auto; padding:12px 24px;" onclick="clearSignature()">Löschen</button>
-      <button type="button" class="af-submit" style="background:var(--paper-3); color:var(--ink); box-shadow:none; border:1px solid var(--hair-2); width:auto; padding:12px 24px;" onclick="closeSignatureModal()">Abbrechen</button>
+      <button type="button" class="af-submit" style="background:var(--paper-3); color:var(--ink); box-shadow:none; border:1px solid var(--hair-2); width:auto; padding:12px 24px;" onclick="history.back()">Abbrechen</button>
       <button type="button" class="af-submit" style="width:auto; padding:12px 32px;" onclick="confirmSignature()">Übernehmen</button>
     </div>
   </div>
-</div>
 
 <!-- WA Modal -->
 <div id="wa-modal" style="display:none;">
@@ -344,16 +336,32 @@
   let signatureBase64 = null;
 
   function openSignatureModal() {
-    document.getElementById('sig-modal').style.display = 'flex';
+    document.querySelector('.vm-header').style.display = 'none';
+    document.querySelector('.vm-main').style.display = 'none';
+    document.querySelector('.vm-footer').style.display = 'none';
+    
+    document.getElementById('sig-page').style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    
+    history.pushState({sigOpen: true}, '', '#unterschrift');
+    
     initSignaturePad();
     setTimeout(resizeCanvas, 50); 
   }
 
   function closeSignatureModal() {
-    document.getElementById('sig-modal').style.display = 'none';
+    document.getElementById('sig-page').style.display = 'none';
+    document.querySelector('.vm-header').style.display = 'block';
+    document.querySelector('.vm-main').style.display = 'block';
+    document.querySelector('.vm-footer').style.display = 'block';
     document.body.style.overflow = '';
   }
+
+  window.addEventListener('popstate', function(e) {
+    if (document.getElementById('sig-page').style.display === 'flex') {
+      closeSignatureModal();
+    }
+  });
 
   function confirmSignature() {
     if(!signaturePad || signaturePad.isEmpty()) {
@@ -370,7 +378,7 @@
     btn.style.border = "1px solid #16a34a";
     btn.style.color = "#16a34a";
 
-    closeSignatureModal();
+    history.back(); // Triggers popstate which calls closeSignatureModal()
   }
 
   function syncDataToPDF() {
