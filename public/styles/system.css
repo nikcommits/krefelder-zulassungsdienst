@@ -396,12 +396,20 @@ footer.site a:hover{color:#fff}
 }
 .sig-modal-content, .wa-modal-content {
   background: var(--paper-2);
-  padding: 32px;
+  padding: 24px;
   border-radius: var(--r-lg);
-  width: 100%;
-  max-width: 700px;
+  width: 95vw;
+  height: 95vh;
+  max-width: 900px;
+  max-height: 800px;
   box-shadow: var(--shadow-lg);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.wa-modal-content {
+  height: auto;
+  max-width: 500px;
 }
 .sig-modal-content h3, .wa-modal-content h3 {
   font-size: 1.5rem;
