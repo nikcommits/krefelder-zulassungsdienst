@@ -9,7 +9,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <section class="hero">
   <div class="wrap">
     <div class="grid">
-      <div class="hero-copy">
+      <div class="hero-copy" data-aos="fade-right">
         <div class="eyebrow"><span class="dot"></span> Dein Zulassungsdienst in ganz NRW</div>
         <h1 class="h1">Zulassung in unter<br><span class="text-orange">10 Minuten</span><br>Deutschlandweit &amp; 24/7</h1>
         <p class="lead">Egal ob Samstag, Sonntag oder Feiertag – wir sind dein zuverlässiger Partner für Kfz-Zulassungen. Stressfrei, schnell und professionell direkt vor deiner Haustür.</p>
@@ -24,7 +24,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </a>
         </div>
       </div>
-      <div class="hero-media">
+      <div class="hero-media" data-aos="fade-left">
         <div class="frame"><img src={import.meta.env.BASE_URL + "assets/images/hero-new.webp"} alt="Übergabe der Kennzeichen nach erfolgreicher Zulassung" width="800" height="600"></div>
       </div>
     </div>
@@ -69,25 +69,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <!-- ════════ Ablauf / 3 Schritte ════════ -->
 <section id="ablauf" class="section">
   <div class="wrap wrap-md">
-    <div class="sec-head">
+    <div class="sec-head" data-aos="fade-up">
       <h2 class="h2">In 3 Schritten <span class="text-orange">ans Ziel</span></h2>
       <div class="sec-rule"></div>
       <p class="lead">Einfacher geht's nicht! Erspar dir den Weg zum Straßenverkehrsamt und nutze unseren bequemen Online-Service.</p>
     </div>
     <div class="steps">
-      <div class="step">
+      <div class="step" data-aos="fade-up" data-aos-delay="100">
         <div class="num dark">1</div>
         <div class="ico ico-wa"><svg viewBox="0 0 576 512" fill="currentColor"><path d="M402.6 83.2 462 142.6 290 314.6l-72.2 8 8-72.2 172-167.2zM512 92.6 484.6 65.2c-12.5-12.5-32.8-12.5-45.3 0l-30.1 30.1 59.4 59.4 30.1-30.1c12.5-12.5 12.5-32.8 0-45.3zM96 64C43 64 0 107 0 160v256c0 53 43 96 96 96h256c53 0 96-43 96-96v-96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/></svg></div>
         <h3 class="h3">Online Auftrag erteilen</h3>
         <p>Fülle in 2 Minuten unser Online-Formular aus, unterschreibe bequem am Bildschirm und sende uns Fotos deiner Dokumente per WhatsApp.</p>
       </div>
-      <div class="step">
+      <div class="step" data-aos="fade-up" data-aos-delay="100">
         <div class="num red">2</div>
         <div class="ico ico-blue"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M64 0C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h176l-10.7 32H160c-17.7 0-32 14.3-32 32s14.3 32 32 32h192c17.7 0 32-14.3 32-32s-14.3-32-32-32h-69.3L272 416h176c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64zM448 64v224H64V64h384z"/></svg></div>
         <h3 class="h3">Wir lassen zu</h3>
         <p>Wir prüfen deine Dokumente sofort und führen die Online-Zulassung beim KBA für dich durch. Ohne jede Wartezeit!</p>
       </div>
-      <div class="step">
+      <div class="step" data-aos="fade-up" data-aos-delay="100">
         <div class="num dark">3</div>
         <div class="ico ico-orange"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M135.2 117.4 109.1 192h293.8l-26.1-74.6C372.3 104.6 360.2 96 346.6 96H165.4c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8 74.8 96.3C88.3 57.8 124.6 32 165.4 32h181.2c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2v144c0 17.7-14.3 32-32 32h-32c-17.7 0-32-14.3-32-32v-32H96v32c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V256c0-26.7 16.4-49.6 39.6-59.2zM128 288a32 32 0 1 0-64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg></div>
         <h3 class="h3">Sofort losfahren</h3>
@@ -107,7 +107,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <section class="section bg-soft">
   <div class="wrap wrap-narrow">
     <div class="trust-card">
-      <div class="trust-left">
+      <div class="trust-left" data-aos="fade-right">
         <span class="pill-tag">Online-Dienst für ganz Deutschland</span>
         <h2 class="h2">Online-Zulassung in <span class="text-orange">unter 10 Minuten</span><br><span style="font-size:1.5rem;color:var(--muted);font-weight:700">sofort losfahren</span></h2>
         <p class="lead" style="margin:24px 0">Warum tagelang auf einen Termin beim Straßenverkehrsamt warten? Mit unserer digitalen Lösung oder dem Vor-Ort-Abholservice sparst du dir Nerven und wertvolle Zeit.</p>
@@ -158,13 +158,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <!-- ════════ 10-Minuten Checker ════════ -->
 <section id="checker" class="section bg-soft">
   <div class="wrap wrap-narrow">
-    <div class="sec-head">
+    <div class="sec-head" data-aos="fade-up">
       <h2 class="h2 uppercase">Der 4-Schritte-Check</h2>
       <div class="sec-rule"></div>
       <p class="lead">Prüfe in 4 Klicks, ob dein Fahrzeug für die digitale Express-Zulassung geeignet ist.</p>
     </div>
 
-    <div class="checker-box" id="checker-container">
+    <div class="checker-box" id="checker-container" data-aos="zoom-in">
       <!-- Q1 -->
       <div id="step-1" class="checker-step">
         <div class="q-label">Frage 1 von 4</div>
@@ -235,48 +235,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <!-- ════════ Preise ════════ -->
 <section id="preise" class="section">
   <div class="wrap wrap-md">
-    <div class="sec-head">
+    <div class="sec-head" data-aos="fade-up">
       <h2 class="h2 uppercase">Faire <span class="text-orange">Festpreise</span></h2>
       <div class="sec-rule"></div>
       <p class="lead">Transparent und ohne versteckte Kosten. Amtliche Gebühren sind in unseren Komplettpreisen bereits enthalten.</p>
     </div>
     <div class="price-grid">
-      <div class="price-card">
+      <div class="price-card" data-aos="fade-up" data-aos-delay="100">
         <div class="pc-left">
           <div class="pc-ic"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M135.2 117.4 109.1 192h293.8l-26.1-74.6C372.3 104.6 360.2 96 346.6 96H165.4c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8 74.8 96.3C88.3 57.8 124.6 32 165.4 32h181.2c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2v144c0 17.7-14.3 32-32 32h-32c-17.7 0-32-14.3-32-32v-32H96v32c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V256c0-26.7 16.4-49.6 39.6-59.2zM128 288a32 32 0 1 0-64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg></div>
           <div><h4>Anmeldung / Neuzulassung</h4><div class="pc-sub">inkl. amtlicher Gebühren &amp; Wunschkennzeichen</div></div>
         </div>
         <div class="pc-val"><small>ab</small>119 €</div>
       </div>
-      <div class="price-card">
+      <div class="price-card" data-aos="fade-up" data-aos-delay="100">
         <div class="pc-left">
           <div class="pc-ic"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M32 96l320 0 0-64c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l96 96c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-96 96c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6l0-64L32 160c-17.7 0-32-14.3-32-32s14.3-32 32-32zM480 352c17.7 0 32 14.3 32 32s-14.3 32-32 32l-320 0 0 64c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-96-96c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l96-96c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 64 320 0z"/></svg></div>
           <div><h4>Ummeldung (Halterwechsel)</h4><div class="pc-sub">inkl. amtlicher Gebühren &amp; Wunschkennzeichen</div></div>
         </div>
         <div class="pc-val"><small>ab</small>119 €</div>
       </div>
-      <div class="price-card">
+      <div class="price-card" data-aos="fade-up" data-aos-delay="100">
         <div class="pc-left">
           <div class="pc-ic"><svg viewBox="0 0 640 512" fill="currentColor"><path d="M280 32c-13.3 0-24 10.7-24 24s10.7 24 24 24l57.7 0 16.4 30.3L256 192l-45.3-45.3c-12-12-28.3-18.7-45.3-18.7L64 128c-17.7 0-32 14.3-32 32l0 32 96 0c88.4 0 160 71.6 160 160c0 11-1.1 21.7-3.2 32l70.4 0c-2.1-10.3-3.2-21-3.2-32c0-52.2 25-98.6 63.7-127.8l15.4 28.6C402.4 276.3 384 312 384 352c0 70.7 57.3 128 128 128s128-57.3 128-128s-57.3-128-128-128c-13.5 0-26.5 2.1-38.7 6L418.2 128l61.8 0c17.7 0 32-14.3 32-32l0-32c0-17.7-14.3-32-32-32l-20.4 0c-7.5 0-14.7 2.6-20.5 7.4L391.7 78.9l-14-26c-7-12.9-20.5-21-35.2-21L280 32zM462.7 311.2l28.2 52.2c6.3 11.7 20.9 16 32.5 9.7s16-20.9 9.7-32.5l-28.2-52.2c2.3-.3 4.7-.4 7.1-.4c35.3 0 64 28.7 64 64s-28.7 64-64 64s-64-28.7-64-64c0-15.5 5.5-29.7 14.7-40.8zM187.3 376c-9.5 23.5-32.5 40-59.3 40c-35.3 0-64-28.7-64-64s28.7-64 64-64c26.9 0 49.9 16.5 59.3 40l66.4 0C242.5 268.8 190.5 224 128 224C57.3 224 0 281.3 0 352s57.3 128 128 128c62.5 0 114.5-44.8 125.8-104l-66.4 0zM128 384a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg></div>
           <div><h4>Motorrad-Anmeldung</h4><div class="pc-sub">An- &amp; Ummeldung für Krafträder</div></div>
         </div>
         <div class="pc-val"><small>ab</small>109 €</div>
       </div>
-      <div class="price-card">
+      <div class="price-card" data-aos="fade-up" data-aos-delay="100">
         <div class="pc-left">
           <div class="pc-ic"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209 241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg></div>
           <div><h4>Abmeldung / Außerbetriebsetzung</h4><div class="pc-sub">schnell &amp; unkompliziert</div></div>
         </div>
         <div class="pc-val"><small>ab</small>29 €</div>
       </div>
-      <div class="price-card">
+      <div class="price-card" data-aos="fade-up" data-aos-delay="100">
         <div class="pc-left">
           <div class="pc-ic"><svg viewBox="0 0 576 512" fill="currentColor"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L447.7 329.9l25.4 155.4c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7L287.9 437.4 137.6 510c-8 4.3-17.8 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l25.4-155.4L17.8 218.6c-6.4-6.4-8.7-15.9-5.9-24.5s10.3-15 19.3-16.3l153.2-22.6L246.3 13.5C250.3 5.2 258.7 0 287.9 0z"/></svg></div>
           <div><h4>Wunschkennzeichen</h4><div class="pc-sub">Reservierung deines Wunsch­kürzels</div></div>
         </div>
         <div class="pc-val"><small>ab</small>14,90 €</div>
       </div>
-      <div class="price-card">
+      <div class="price-card" data-aos="fade-up" data-aos-delay="100">
         <div class="pc-left">
           <div class="pc-ic"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></div>
           <div><h4>Export, Saison, Kurzzeit &amp; mehr</h4><div class="pc-sub">individuelle Sonderfälle</div></div>
@@ -294,7 +294,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <!-- ════════ Social Proof & Reviews ════════ -->
 <section class="section">
   <div class="wrap wrap-md center">
-    <div class="sec-head">
+    <div class="sec-head" data-aos="fade-up">
       <h2 class="h2 uppercase">Bekannt für exzellenten Service</h2>
       <div class="sec-rule"></div>
     </div>
